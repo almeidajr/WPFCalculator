@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="490" Width="350">
+        Title="MainWindow" Height="535" Width="335">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -34,16 +34,19 @@
                 Grid.Column="0"
                 Grid.Row="1" />
         <Button x:Name="NegativeButton"
+                Click="NegativeButton_Click"
                 Content="⁺∕₋"
                 Margin="5"
                 Grid.Column="1"
                 Grid.Row="1" />
         <Button x:Name="PercentageButton"
+                Click="PercentageButton_Click"
                 Content="%"
                 Margin="5"
                 Grid.Column="2"
                 Grid.Row="1" />
         <Button x:Name="DivideButton"
+                Click="OperatorButton_Click"
                 Content="÷"
                 Margin="5"
                 Grid.Column="3"
@@ -67,6 +70,7 @@
                 Grid.Column="2"
                 Grid.Row="2" />
         <Button x:Name="MultiplyButton"
+                Click="OperatorButton_Click"
                 Content="×"
                 Margin="5"
                 Grid.Column="3"
@@ -89,7 +93,8 @@
                 Margin="5"
                 Grid.Column="2"
                 Grid.Row="3" />
-        <Button x:Name="MinusButton"
+        <Button x:Name="SubtractButton"
+                Click="OperatorButton_Click"
                 Content="-"
                 Margin="5"
                 Grid.Column="3"
@@ -112,7 +117,8 @@
                 Margin="5"
                 Grid.Column="2"
                 Grid.Row="4" />
-        <Button x:Name="PlusButton"
+        <Button x:Name="AddButton"
+                Click="OperatorButton_Click"
                 Content="+"
                 Margin="5"
                 Grid.Column="3"
@@ -130,6 +136,7 @@
                 Grid.Column="2"
                 Grid.Row="5" />
         <Button x:Name="EqualsButton"
+                Click="EqualsButton_Click"
                 Content="="
                 Margin="5"
                 Grid.Column="3"
