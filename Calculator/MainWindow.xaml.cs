@@ -75,6 +75,7 @@ namespace Calculator
 
         private void NegativeButton_Click(object sender, RoutedEventArgs e)
         {
+            if (currentValue == 0) return;
             currentValue *= -1;
             UpdateResultLabel();
         }
