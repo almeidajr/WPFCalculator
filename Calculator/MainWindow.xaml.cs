@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,7 +24,7 @@ namespace Calculator
             ResultLabel.Content = currentValue.ToString();
         }
 
-        private void CalculateResult()
+        private void ApplyOperator()
         {
             result = currentOperator(result, currentValue);
         }
@@ -41,10 +42,18 @@ namespace Calculator
             var buttonText = button.Content.ToString();
             if (string.IsNullOrEmpty(buttonText))
             {
-                throw new System.ArgumentException("Button content is null or empty");
+                throw new ArgumentException("Button content is null or empty");
             }
 
-            currentValue = currentValue * 10 + double.Parse(buttonText);
+            var resultContent = ResultLabel.Content.ToString();
+            if (string.IsNullOrEmpty(resultContent))
+            {
+                throw new ArgumentException("Result label content is null or empty");
+            }
+
+            resultContent = resultContent == "0" ? buttonText : resultContent + buttonText;
+            currentValue = double.Parse(resultContent);
+
             UpdateResultLabel();
         }
 
@@ -56,7 +65,7 @@ namespace Calculator
 
         private void EqualsButton_Click(object sender, RoutedEventArgs e)
         {
-            CalculateResult();
+            ApplyOperator();
             var holder = result;
             ResultLabel.Content = holder.ToString();
 
@@ -82,19 +91,34 @@ namespace Calculator
             var buttonText = button.Content.ToString();
             if (string.IsNullOrEmpty(buttonText))
             {
-                throw new System.ArgumentException("Button content is null or empty");
+                throw new ArgumentException("Button content is null or empty");
             }
-            CalculateResult();
+            ApplyOperator();
             currentOperator = buttonText switch
             {
                 Operation.Add => Operator.Add,
                 Operation.Subtract => Operator.Subtract,
                 Operation.Multiply => Operator.Multiply,
                 Operation.Divide => Operator.Divide,
-                _ => throw new System.ArgumentException("Button content is not an valid operator"),
+                _ => throw new ArgumentException("Button content is not an valid operator"),
             };
             currentValue = 0;
             UpdateResultLabel();
+        }
+
+        private void DecimalButton_Click(object sender, RoutedEventArgs e)
+        {
+            var resultContent = ResultLabel.Content.ToString();
+            if (string.IsNullOrEmpty(resultContent))
+            {
+                throw new ArgumentException("Result label content is null or empty");
+            }
+
+            var separator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+            if (!resultContent.Contains(separator))
+            {
+                ResultLabel.Content += separator;
+            }
         }
     }
 
